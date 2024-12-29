@@ -9,17 +9,20 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@react-three/fiber": "^9.0.0-alpha.8",
     "@stitches/react": "^1.2.8",
     "axios": "^1.7.9",
     "keen-slider": "^6.8.6",
-    "next": "15.1.2",
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
-    "stripe": "^17.5.0"
+    "lucide-react": "^0.469.0",
+    "next": "^14.2.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "stripe": "^17.5.0",
+    "use-shopping-cart": "^3.2.0"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",
-    "@types/react": "^19.0.2",
+    "@types/react": "^18.0.2",
     "eslint": "9.17.0",
     "eslint-config-next": "15.1.2",
     "typescript": "^5.7.2"

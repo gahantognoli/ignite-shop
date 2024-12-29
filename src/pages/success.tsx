@@ -8,27 +8,23 @@ import { Head } from "next/document";
 
 interface SuccessProps {
   customerName: string;
-  product: {
-    name: string;
-    image: string;
-  };
+  products: Stripe.Product[];
 }
 
-export default function Success({ customerName, product }: SuccessProps) {
+export default function Success({ customerName, products }: SuccessProps) {
   return (
     <>
-      <Head>
+      {/* <Head>
         <title>Compra efetuada | Ignite Shop</title>
         <meta name="robots" content="noindex" />
-      </Head>
+      </Head> */}
       <SuccessContainer>
         <h1>Compra efetuada!</h1>
-        <ImageContainer>
-          <Image src={product.image} width={120} height={110} alt="" />
-        </ImageContainer>
         <p>
-          Uhuuul <strong>{customerName}</strong>, sua{" "}
-          <strong>{product.name}</strong> já está a caminho da sua casa.
+          Uhuuul <strong>{customerName}</strong>,{" "}
+          {products.length > 1 ? "seus itens " : "seu item "}{" "}
+          <strong>{products.map((p) => p.name).join(", ")}</strong> já{" "}
+          {products.length > 1 ? "estão" : "está"} a caminho da sua casa.
         </p>
         <Link href={"/"}>Voltar ao catálogo</Link>
       </SuccessContainer>
@@ -53,15 +49,14 @@ export const getServerSideProps = async ({ query }) => {
   });
 
   const customerName = session.customer_details.name;
-  const product = session.line_items.data[0].price.product as Stripe.Product;
+  const products = session.line_items.data.map(
+    (item) => item.price.product
+  ) as Stripe.Product[];
 
   return {
     props: {
       customerName,
-      product: {
-        name: product.name,
-        image: product.images[0],
-      },
+      products,
     },
   };
 };
